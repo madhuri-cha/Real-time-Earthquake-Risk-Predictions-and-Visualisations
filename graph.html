@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="graph.css">
+</head>
+
+<body>
+    <div class="heading">Visualisation Of Events</div>
+
+    <div class="images">
+        <span class="img">
+            <img src="" id="hist" alt="">
+        </span>
+       
+        <span>
+            <img src="" id="pie" alt="">
+        </span>
+        <span>
+            <img src="" id="tsunami" alt="">
+        </span>
+        <span>
+            <img src="" id="box" alt="">
+        </span>
+    </div>
+
+
+</body>
+
+<script>
+    async function loadGraphs(graphsType, elmId) {
+
+        fetch(`http://127.0.0.1:8000/graph/${graphsType}`)
+            .then(response => response.blob())
+            .then(blob => {
+                let imgUrl = URL.createObjectURL(blob);
+                document.getElementById(elmId).src = imgUrl;
+            })
+            .catch(error => console.error("Error:", error));
+    }
+
+    loadGraphs("histogram", "hist")
+    loadGraphs("pie", "pie")
+    loadGraphs("tsunami", "tsunami")
+    loadGraphs("boxplot", "box")
+
+
+</script>
+
+</html>
