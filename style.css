@@ -1,0 +1,122 @@
+/* Reset default margins & paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Page Title */
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+body{
+    background-image: url("21196321.jpg");
+    background-size: cover;
+    background-position: center;        
+    height:max-content;
+    min-height: 800px;
+}    
+p{
+    margin: 3px;
+}
+
+h1{
+    color: white;
+    font-size: xx-large;
+}
+
+#btn{
+    padding: 5px;
+    background-color: aquamarine;
+    border-radius: 5px;
+    border-color:  aquamarine;
+    color:gray;
+}
+
+.btn{
+    padding: 5px;
+    background-color: aquamarine;
+    border-radius: 5px;
+    border-color:  aquamarine;
+    color:gray;
+}
+
+#time{
+    padding: 5px;
+    background-color: rgb(139, 145, 143);
+    border-radius: 5px;
+    border-color: rgb(139, 145, 143);
+    color:white;
+    margin-right: 20px;
+}
+
+.nav{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 30px;
+   
+}
+
+/* Card Container */
+
+/* Card Container */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); /* Ensures two cards fit */
+    gap: 30px; /* Adds space between cards */
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 20px;
+    max-width: px; /* Adjust container width */
+    margin: auto;
+}
+
+/* Card Styling */
+.card {
+    width: 100%; /* Takes full width of grid column */
+    max-width: 500px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-left: 5px solid #4CAF50; /* Green for low risk */
+}
+/* Magnitude Styling */
+.magnitude {
+    font-size: 20px;
+    font-weight: bold;
+    color: red; /* High magnitude in red */
+}
+
+/* Risk Level Styling */
+.risk {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+/* Risk Color Variations */
+.Low { background-color: green; }
+.Medium { background-color: orange; }
+.High { background-color: red; }
+
+/* Tsunami Alert */
+.tsunami {
+    font-weight: bold;
+    color: blue;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .card {
+        width: 90%;
+    }
+}
