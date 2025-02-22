@@ -9,7 +9,7 @@ btn.addEventListener("click",async ()=>{
 
     cards.innerHTML = ""
 
-    await fetch('https://real-time-earthquake-risk-predictions.onrender.com/period',{
+    await fetch('https://real-time-earthquake-risk-predictions.onrender.com/period/',{
         method : "POST",
         headers : {
             'Content-Type': 'application/json',  
