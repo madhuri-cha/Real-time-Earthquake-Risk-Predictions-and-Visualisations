@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earthquake Risk Classification</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav">
+        <h1>Real-Time Earthquake Risk Classification</h1>
+        <div>
+            
+            <select name="Time" id="time">
+                <option value=30>30 Minutes</option>
+                <option value="1">1 Hour</option>
+                <option value="3">3 Hours</option>
+                <option value="6">6 Hours</option>
+            </select>
+
+            <button id="btn">Search</button> 
+
+            <button class = btn onclick="window.open('graph.html','_blank')">Visualize</button>
+
+                   
+    
+        </div>
+        
+    </div>    
+    <div  id = "cards" class="cards">
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
