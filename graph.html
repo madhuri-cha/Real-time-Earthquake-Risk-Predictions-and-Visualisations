@@ -33,7 +33,7 @@
 <script>
     async function loadGraphs(graphsType, elmId) {
 
-        fetch(`'https://real-time-earthquake-risk-predictions.onrender.com/graph/${graphsType}`)
+        fetch(`https://real-time-earthquake-risk-predictions.onrender.com/graph/${graphsType}`)
             .then(response => response.blob())
             .then(blob => {
                 let imgUrl = URL.createObjectURL(blob);
