@@ -17,7 +17,7 @@ btn.addEventListener("click",async ()=>{
         body : JSON.stringify({time : period})
     })
 
-    const ws = new WebSocket("ws://real-time-earthquake-risk-predictions.onrender.com/ws")       
+    const ws = new WebSocket("wss://real-time-earthquake-risk-predictions.onrender.com/ws")       
     ws.onmessage = (event)=>{
         let  data = JSON.parse(event.data)
         
