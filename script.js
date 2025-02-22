@@ -9,7 +9,7 @@ btn.addEventListener("click",async ()=>{
 
     cards.innerHTML = ""
 
-    await fetch('http://https://real-time-earthquake-risk-predictions.onrender.com/period',{
+    await fetch('https://real-time-earthquake-risk-predictions.onrender.com/period',{
         method : "POST",
         headers : {
             'Content-Type': 'application/json',  
@@ -17,7 +17,7 @@ btn.addEventListener("click",async ()=>{
         body : JSON.stringify({time : period})
     })
 
-    const ws = new WebSocket("ws://https://real-time-earthquake-risk-predictions.onrender.com/ws")       
+    const ws = new WebSocket("wss://real-time-earthquake-risk-predictions.onrender.com/ws")       
     ws.onmessage = (event)=>{
         let  data = JSON.parse(event.data)
         
