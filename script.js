@@ -9,7 +9,7 @@ btn.addEventListener("click",async ()=>{
 
     cards.innerHTML = ""
 
-    await fetch('http://35.160.120.126:8000/period',{
+    await fetch('http://44.233.151.27:8000/period',{
         method : "POST",
         headers : {
             'Content-Type': 'application/json',  
@@ -17,7 +17,7 @@ btn.addEventListener("click",async ()=>{
         body : JSON.stringify({time : period})
     })
 
-    const ws = new WebSocket("ws://35.160.120.126:8000/ws")       
+    const ws = new WebSocket("ws://44.233.151.27:8000/ws")       
     ws.onmessage = (event)=>{
         let  data = JSON.parse(event.data)
         
