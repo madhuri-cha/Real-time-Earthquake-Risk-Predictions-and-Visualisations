@@ -300,7 +300,7 @@ def generateGraphs(graphType):
 
     return StreamingResponse(buf, media_type="image/png")  
 
-@App.get("/graph/{graph_type}")
+@App.get("/graph/{graph_type}/")
 async def sendGraph(graph_type : str):
     return generateGraphs(graph_type)
 
