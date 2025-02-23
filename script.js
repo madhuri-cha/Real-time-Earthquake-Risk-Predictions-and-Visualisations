@@ -43,7 +43,7 @@ btn.addEventListener("click",async ()=>{
 
 }
     ws.onerror = (event)=>{
-                cards.innerHTML = "<h2>No Data Available, Please try a different time period.</h2>";
+                cards.innerHTML = "<h2 style='color: white;'>No Data Available, Please try a different time period.</h2>";
 
     }
 })
