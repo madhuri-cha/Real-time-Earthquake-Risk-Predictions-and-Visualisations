@@ -43,9 +43,8 @@ btn.addEventListener("click",async ()=>{
 
 }
     ws.onerror = (event)=>{
-        const fail = document.getElementsByTagName("h2")
+                cards.innerHTML = "<h2>No Data Available, Please try a different time period.</h2>";
 
-        fail.innerHTML = "No Data Available, Please go with different time stamp"
     }
 })
 
