@@ -10,7 +10,251 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="nav">
+    <div class="nav"><!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earthquake Data Visualisation</title>
+    <link rel="stylesheet" href="graph.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="heading">Earthquake Data Visualisation Dashboard</div>
+
+    <div class="graphs-container">
+        <div class="images">
+            <!-- Histogram Graph Card -->
+            <div class="graph-card" data-graph-id="hist">
+                <div class="graph-header">
+                    <h3 class="graph-title"><i class="fas fa-chart-bar"></i> Magnitude Distribution</h3>
+                    <button class="refresh-button" onclick="refreshGraph('histogram', 'hist')">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="image-container">
+                    <div id="hist-container" class="loading-image">
+                        <div class="loading-spinner"><i class="fas fa-spinner fa-spin fa-3x"></i></div>
+                    </div>
+                    <img src="" id="hist" alt="Magnitude Histogram" style="display: none;" onclick="zoomImage('hist')">
+                    <div class="image-caption">Click to enlarge</div>
+                </div>
+                <div class="graph-description">
+                    This histogram shows the distribution of earthquake magnitudes, helping to identify the most common magnitude ranges.
+                </div>
+                <div class="graph-info">
+                    <i class="fas fa-info-circle"></i> Higher bars indicate more earthquakes in that magnitude range.
+                </div>
+            </div>
+            
+            <!-- Pie Chart Graph Card -->
+            <div class="graph-card" data-graph-id="pie">
+                <div class="graph-header">
+                    <h3 class="graph-title"><i class="fas fa-chart-pie"></i> Event Type Distribution</h3>
+                    <button class="refresh-button" onclick="refreshGraph('pie', 'pie')">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="image-container">
+                    <div id="pie-container" class="loading-image">
+                        <div class="loading-spinner"><i class="fas fa-spinner fa-spin fa-3x"></i></div>
+                    </div>
+                    <img src="" id="pie" alt="Event Type Distribution" style="display: none;" onclick="zoomImage('pie')">
+                    <div class="image-caption">Click to enlarge</div>
+                </div>
+                <div class="graph-description">
+                    This pie chart displays the proportion of different earthquake event types, showing their relative frequency.
+                </div>
+                <div class="graph-info">
+                    <i class="fas fa-info-circle"></i> Larger sections represent more common event types in the selected time frame.
+                </div>
+            </div>
+            
+            <!-- Tsunami Graph Card -->
+            <div class="graph-card" data-graph-id="tsunami">
+                <div class="graph-header">
+                    <h3 class="graph-title"><i class="fas fa-water"></i> Tsunami Risk Analysis</h3>
+                    <button class="refresh-button" onclick="refreshGraph('tsunami', 'tsunami')">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="image-container">
+                    <div id="tsunami-container" class="loading-image">
+                        <div class="loading-spinner"><i class="fas fa-spinner fa-spin fa-3x"></i></div>
+                    </div>
+                    <img src="" id="tsunami" alt="Tsunami Risk Analysis" style="display: none;" onclick="zoomImage('tsunami')">
+                    <div class="image-caption">Click to enlarge</div>
+                </div>
+                <div class="graph-description">
+                    This visualization analyzes tsunami risk factors related to earthquake events, providing insight into potential secondary hazards.
+                </div>
+                <div class="graph-info">
+                    <i class="fas fa-info-circle"></i> Tsunami warnings are typically associated with underwater earthquakes of magnitude 7.0 or greater.
+                </div>
+            </div>
+            
+            <!-- Box Plot Graph Card -->
+            <div class="graph-card" data-graph-id="box">
+                <div class="graph-header">
+                    <h3 class="graph-title"><i class="fas fa-box"></i> Magnitude Statistics</h3>
+                    <button class="refresh-button" onclick="refreshGraph('boxplot', 'box')">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="image-container">
+                    <div id="box-container" class="loading-image">
+                        <div class="loading-spinner"><i class="fas fa-spinner fa-spin fa-3x"></i></div>
+                    </div>
+                    <img src="" id="box" alt="Magnitude Boxplot" style="display: none;" onclick="zoomImage('box')">
+                    <div class="image-caption">Click to enlarge</div>
+                </div>
+                <div class="graph-description">
+                    This box plot provides statistical information about earthquake magnitudes, showing median, quartiles, and outliers.
+                </div>
+                <div class="graph-info">
+                    <i class="fas fa-info-circle"></i> The box shows the middle 50% of data with whiskers extending to non-outlier extremes.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Zoom Overlay -->
+    <div id="zoom-overlay" class="zoom-overlay" onclick="closeZoom()">
+        <img id="zoomed-image" src="" alt="Zoomed visualization">
+    </div>
+
+    <!-- Back Button -->
+    <button class="back-button" onclick="window.location.href='index.html'">
+        <i class="fas fa-home"></i>
+    </button>
+
+    <script>
+        async function loadGraphs(graphsType, elmId) {
+            const imgElement = document.getElementById(elmId);
+            const containerElement = document.getElementById(`${elmId}-container`);
+            
+            try {
+                const response = await fetch(`https://real-time-earthquake-risk-predictions.onrender.com/graph/${graphsType}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const blob = await response.blob();
+                let imgUrl = URL.createObjectURL(blob);
+                
+                imgElement.onload = function() {
+                    containerElement.style.display = "none";
+                    imgElement.style.display = "block";
+                    
+                    // Add animation to show the image
+                    imgElement.style.opacity = "0";
+                    setTimeout(() => {
+                        imgElement.style.transition = "opacity 0.5s ease";
+                        imgElement.style.opacity = "1";
+                    }, 50);
+                }
+                
+                imgElement.src = imgUrl;
+            } catch (error) {
+                console.error("Error:", error);
+                containerElement.innerHTML = `<div style="color: white; text-align: center;">
+                    <i class="fas fa-exclamation-triangle fa-2x"></i>
+                    <p>Failed to load graph</p>
+                    <button class="refresh-button" style="margin: 15px auto; display: block;" 
+                            onclick="loadGraphs('${graphsType}', '${elmId}')">
+                        Try Again
+                    </button>
+                </div>`;
+            }
+        }
+        
+        // Function to refresh individual graphs
+        function refreshGraph(graphsType, elmId) {
+            const containerElement = document.getElementById(`${elmId}-container`);
+            const imgElement = document.getElementById(elmId);
+            
+            // Show loading spinner
+            containerElement.style.display = "flex";
+            containerElement.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-spin fa-3x"></i></div>`;
+            imgElement.style.display = "none";
+            
+            // Load the graph again
+            loadGraphs(graphsType, elmId);
+            
+            // Animate the refresh button
+            const button = event.currentTarget;
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Refreshing';
+            setTimeout(() => {
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+            }, 2000);
+        }
+        
+        // Function to zoom image
+        function zoomImage(imgId) {
+            const img = document.getElementById(imgId);
+            const zoomOverlay = document.getElementById('zoom-overlay');
+            const zoomedImg = document.getElementById('zoomed-image');
+            
+            zoomedImg.src = img.src;
+            zoomOverlay.classList.add('active');
+            
+            // Prevent scrolling when zoom is active
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Function to close zoomed image
+        function closeZoom() {
+            const zoomOverlay = document.getElementById('zoom-overlay');
+            zoomOverlay.classList.remove('active');
+            
+            // Restore scrolling
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close zoom overlay with ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeZoom();
+            }
+        });
+
+        // Stagger the loading of graphs for better performance
+        document.body.style.opacity = 0;
+        window.onload = function() {
+            setTimeout(function() {
+                document.body.style.transition = "opacity 1s ease";
+                document.body.style.opacity = 1;
+                
+                // Load graphs with staggered timing
+                setTimeout(() => loadGraphs("histogram", "hist"), 200);
+                setTimeout(() => loadGraphs("pie", "pie"), 600);
+                setTimeout(() => loadGraphs("tsunami", "tsunami"), 1000);
+                setTimeout(() => loadGraphs("boxplot", "box"), 1400);
+            }, 100);
+        }
+        
+        // Animation for graph cards on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.graph-card').forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
         <h1>Real-Time Earthquake Risk Classification</h1>
         <div class="nav-controls">
             <select name="Time" id="time">
