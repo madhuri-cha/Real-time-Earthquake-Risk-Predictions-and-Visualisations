@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earthquake Risk Classification</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="nav">
         <h1>Real-Time Earthquake Risk Classification</h1>
-        <div>
-            
+        <div class="nav-controls">
             <select name="Time" id="time">
                 <option value=30>30 Minutes</option>
                 <option value="1">1 Hour</option>
@@ -18,17 +20,25 @@
                 <option value="6">6 Hours</option>
             </select>
 
-            <button id="btn">Search</button> 
+            <button id="btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                Search
+            </button> 
 
-            <button class = btn onclick="window.open('graph.html','_blank')">Visualize</button>
-
-                   
-    
+            <button class="btn" onclick="window.open('graph.html','_blank')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
+                Visualize
+            </button>
         </div>
-        
-    </div>    
-    <div  id = "cards" class="cards">
     </div>
+    
+    <div id="cards" class="cards">
+        <div class="empty-state">
+            <h2>Select a time period and click Search</h2>
+            <p>View real-time earthquake risk classifications around the world</p>
+        </div>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
